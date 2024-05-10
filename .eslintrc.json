@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "consistent-return": 0,
+    "no-underscore-dangle": 0
+  },
+  "globals": {
+    "io": true
+  }
+}

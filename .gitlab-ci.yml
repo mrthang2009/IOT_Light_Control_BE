@@ -1,0 +1,12 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - cp /home/env/.env.dashment-api .env
+    - yarn
+    - pm2 restart dashment-api
+  only:
+    refs:
+      - master

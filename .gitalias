@@ -1,0 +1,20 @@
+[alias]
+  branch-name = !git rev-parse --abbrev-ref HEAD #print current branch name
+
+  feature = "!f() { git checkout dev && git pull origin dev && git checkout -b feature/$1; }; f"
+
+  fix = "!f() { git checkout dev && git pull origin dev && git checkout -b fix/$1; }; f"
+
+  cm = !git add . && git commit
+
+  renew = "!f() { currentBr=$(git rev-parse --abbrev-ref HEAD) && echo $currentBr && git checkout $1 && git pull origin $1 && git checkout $currentBr; }; f"
+
+  rb = "!f() { currentBr=$(git rev-parse --abbrev-ref HEAD) && echo $currentBr && git checkout $1 && git pull origin $1 && git checkout $currentBr && git rebase $1 $2; }; f"
+
+  publish = !git push -u origin $(git branch-name)
+
+  unpublish = !git push origin :$(git branch-name)
+
+  remove-this = !currentBr=$(git rev-parse --abbrev-ref HEAD) && echo $currentBr && git checkout dev && echo $currentBr && git branch -D $currentBr
+
+  remove = "!f() { git branch -D $1; }; f"
