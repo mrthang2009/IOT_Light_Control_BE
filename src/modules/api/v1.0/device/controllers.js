@@ -1,11 +1,11 @@
-const { Device } = require("../../../../models");
+const { Device } = require('../../../../models');
 const {
   fuzzySearch,
   apiResponse,
   isMongoId,
   asyncForEach,
-} = require("../../../../helpers");
-const { DEFAULT_PAGINATION } = require("../../../../constants");
+} = require('../../../../helpers');
+const { DEFAULT_PAGINATION } = require('../../../../constants');
 
 module.exports = {
   create: async (req, res, next) => {
@@ -22,7 +22,7 @@ module.exports = {
       return res.json(
         apiResponse({
           payload: newDevice,
-        })
+        }),
       );
     } catch (error) {
       next(error);
@@ -66,7 +66,7 @@ module.exports = {
           payload: listDevices,
           total: totalDevices,
           totalPerPage: totalDevicesPerPage,
-        })
+        }),
       );
     } catch (error) {
       next(error);
@@ -82,7 +82,7 @@ module.exports = {
       const device = await Device.findOne({
         _id: id,
         deletedAt: null,
-      }).select("-createdAt -updatedAt ");
+      }).select('-createdAt -updatedAt ');
 
       if (!device) return next();
       return res.json(apiResponse({ payload: device }));
@@ -102,8 +102,8 @@ module.exports = {
           name,
           description,
         },
-        { new: true }
-      ).select("-createdAt -updatedAt");
+        { new: true },
+      ).select('-createdAt -updatedAt');
 
       if (!device) return next();
       return res.json(apiResponse({ payload: device }));
@@ -136,8 +136,8 @@ module.exports = {
       const device = await Device.findOneAndUpdate(
         { _id: id, deletedAt: null },
         { deletedAt: Date.now() },
-        { new: true }
-      ).select("-createdAt -updatedAt");
+        { new: true },
+      ).select('-createdAt -updatedAt');
 
       if (!device) return next();
 
@@ -152,12 +152,11 @@ module.exports = {
       const { ids } = req.body;
 
       // Kiểm tra xem ids có phải là một mảng và tất cả các phần tử trong mảng có phải là id không
-      const areAllIdsValid =
-        Array.isArray(ids) && ids.every((id) => isMongoId(id));
+      const areAllIdsValid = Array.isArray(ids) && ids.every(id => isMongoId(id));
       if (!areAllIdsValid) {
         return res.status(400).json({
-          message: "Ids phải là một mảng các id hợp lệ",
-          error: "Ids không hợp lệ",
+          message: 'Ids phải là một mảng các id hợp lệ',
+          error: 'Ids không hợp lệ',
         });
       }
 
@@ -167,7 +166,7 @@ module.exports = {
         const deleteMultiple = await Device.findOneAndUpdate(
           { _id: id, deletedAt: null },
           { deletedAt: Date.now() },
-          { new: true }
+          { new: true },
         );
 
         if (!deleteMultiple) {

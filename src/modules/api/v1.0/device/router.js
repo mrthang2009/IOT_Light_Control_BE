@@ -23,7 +23,7 @@ router.route('/create').post(validateSchema(deviceSchema), create);
 router.get('/all', all);
 router.get('/list', list);
 router
-  .route('/delete/')
+  .route('/delete')
   .patch(validateSchema(checkArrayIdSchema), deleteMultiple);
 router
   .route('/detail/:id')
